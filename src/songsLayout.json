@@ -1,0 +1,18 @@
+{
+    "allSongs": {
+        "songs": {
+            "lemon": ""
+        }
+    },
+    "p1": {
+        "songs": {}
+    },
+    "p2": {
+        "songs": {}
+    },
+    "p3": {
+        "songs": {
+            "lemon": ""
+        }
+    }
+}
