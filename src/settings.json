@@ -1,0 +1,6 @@
+{
+    "downloadPath" : "songData",
+    "layoutPath": "songsLayout.json",
+    "allSongs" : "allSongs",
+    "youtubeDLFormat" : "bestaudio/best"
+}
