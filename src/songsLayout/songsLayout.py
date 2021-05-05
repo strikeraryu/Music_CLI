@@ -1,6 +1,14 @@
 # %%
 import json
 import os
+import sys
+from pathlib import *
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from scrapper.urlExtractor import *
+from loader.downloader import *
+
 
 class songsLayout:
     def __init__(self, settings):
@@ -95,12 +103,24 @@ class songsLayout:
         if songName in sLayout[playlistName]['songs']:
             print('song already in the playlist')
         else:
-            # downlaod the song
-            # dont download if already in allsongs
-            songFileName = ''
+            songFileName, songUrl = getUrl(songName)
+            if songName in sLayout[self.settings["allSongs"]]['songs']:
+                sLayout[playlistName]['songs'][songName] = sLayout[self.settings["allSongs"]]['songs'][songName]
+            else:
+                oldSong = ""
+                for songName in sLayout[self.settings["allSongs"]]['songs']:
+                    if sLayout[self.settings["allSongs"]]['songs'][songName] == songFileName:
+                        oldSong = songName
+                if oldSong != "":
+                    print(f'{songName} already exists as different name : {oldSong}')
+                    print(f'song added as {songName}')
+                    sLayout[playlistName]['songs'][oldSong] = sLayout[self.settings["allSongs"]]['songs'][oldSong] 
+                else:
+                    songDownloader = downloader(self.settings)
+                    songData = songDownloader.download(songName, songUrl)
 
-            sLayout[playlistName]['songs'][songName] = songFileName
-            sLayout[self.settings["allSongs"]]['songs'][songName] = songFileName
+                    sLayout[playlistName]['songs'][songName] = songFileName
+                    sLayout[self.settings["allSongs"]]['songs'][songName] = songFileName
 
         with open(self.settings['layoutPath'], 'w') as l:
             json.dump(sLayout, l, indent=4)
@@ -224,5 +244,17 @@ class songsLayout:
 
         return allSongs
     
+    def clearLayout(self):
+        with open(self.settings['layoutPath']) as l:
+           sLayout = json.load(l)
+
+        sLayout = {
+            self.settings["allSongs"] : {
+                "songs": {}
+            }
+        }
+
+        with open(self.settings['layoutPath'], 'w') as l:
+            json.dump(sLayout, l, indent=4)
 
 # %%
