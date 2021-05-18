@@ -23,6 +23,13 @@ class downloader:
             })
 
 
+    '''
+        download the song from youtube with the given URL.
+        returns the dict of soung deatils
+
+        songName : name of song
+        songUrl  : URL of the song 
+    '''
     def download(self, songName, songUrl):
         try:
             print("Downloading {}...".format(songName))
