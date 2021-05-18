@@ -1,0 +1,4 @@
+pygame - pip install pygame
+youtube_dl - pip install --upgrade youtube_dl
+youtubesearchpython - pip install youtube-search-python
+tabulate - pip install tabulate

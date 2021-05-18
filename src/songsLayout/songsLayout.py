@@ -104,13 +104,14 @@ class songsLayout:
             print('song already in the playlist')
         else:
             songFileName, songUrl = getUrl(songName)
+            songFileName += '.mp3'
             if songName in sLayout[self.settings["allSongs"]]['songs']:
                 sLayout[playlistName]['songs'][songName] = sLayout[self.settings["allSongs"]]['songs'][songName]
             else:
                 oldSong = ""
-                for songName in sLayout[self.settings["allSongs"]]['songs']:
-                    if sLayout[self.settings["allSongs"]]['songs'][songName]['file'] == songFileName:
-                        oldSong = songName
+                for songNameTmp in sLayout[self.settings["allSongs"]]['songs']:
+                    if sLayout[self.settings["allSongs"]]['songs'][songNameTmp]['file'] == songFileName:
+                        oldSong = songNameTmp
                 if oldSong != "":
                     print(f'{songName} already exists as different name : {oldSong}')
                     print(f'song added as {oldSong}')
@@ -177,7 +178,7 @@ class songsLayout:
            sLayout = json.load(l)
 
         if songName in sLayout[self.settings["allSongs"] ]['songs']:
-            songFileName = sLayout[self.settings["allSongs"]]['songs'][songName]
+            songFileName = sLayout[self.settings["allSongs"]]['songs'][songName]['file']
             del sLayout[self.settings["allSongs"]]['songs'][songName]
 
             if os.path.exists(os.path.join(self.settings['downloadPath'], songFileName)):
