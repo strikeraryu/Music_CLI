@@ -109,18 +109,18 @@ class songsLayout:
             else:
                 oldSong = ""
                 for songName in sLayout[self.settings["allSongs"]]['songs']:
-                    if sLayout[self.settings["allSongs"]]['songs'][songName] == songFileName:
+                    if sLayout[self.settings["allSongs"]]['songs'][songName]['file'] == songFileName:
                         oldSong = songName
                 if oldSong != "":
                     print(f'{songName} already exists as different name : {oldSong}')
-                    print(f'song added as {songName}')
+                    print(f'song added as {oldSong}')
                     sLayout[playlistName]['songs'][oldSong] = sLayout[self.settings["allSongs"]]['songs'][oldSong] 
                 else:
                     songDownloader = downloader(self.settings)
                     songData = songDownloader.download(songName, songUrl)
 
-                    sLayout[playlistName]['songs'][songName] = songFileName
-                    sLayout[self.settings["allSongs"]]['songs'][songName] = songFileName
+                    sLayout[playlistName]['songs'][songName] = {'file': songFileName, 'url': songUrl}
+                    sLayout[self.settings["allSongs"]]['songs'][songName] = {'file': songFileName, 'url': songUrl}
 
         with open(self.settings['layoutPath'], 'w') as l:
             json.dump(sLayout, l, indent=4)
@@ -257,4 +257,3 @@ class songsLayout:
         with open(self.settings['layoutPath'], 'w') as l:
             json.dump(sLayout, l, indent=4)
 
-# %%
