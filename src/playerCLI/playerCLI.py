@@ -34,6 +34,7 @@ class playerCLI():
             'sget' : {'command' : 'Sget', 'N' : 1, 'type' : [str], 'args' : ['playlistName'], 'confirm' : False},
             'sgetall' : {'command' : 'Sgetall', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
             'lclear' : {'command' : 'Lclear', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : True},
+            'deleteall' : {'command' : 'deleteAll', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : True},
             'pplay' : {'command' : 'Pplay', 'N' : 1, 'type' : [str], 'args' : ['playlistName'], 'confirm' : False},
             'play' : {'command' : 'play', 'N' : 1, 'type' : [str], 'args' : ['songName'], 'confirm' : False},
             'stop' : {'command' : 'stop', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
@@ -59,32 +60,36 @@ class playerCLI():
         currentState = 'stop'
         while self.playerRun:
 
-            if currentState != self.state:
-                if self.state == 'play':
-                    self.player.play(self.queue[self.songInd])
-                    self.state = 'playing'  
-                    currentState = self.state
+            try:
+                if currentState != self.state:
+                    if self.state == 'play':
+                        self.player.play(self.queue[self.songInd]['name'], self.queue[self.songInd]['path'])
+                        self.state = 'playing'  
+                        currentState = self.state
 
-                elif self.state == 'stop':
-                    self.songInd = 0
-                    self.player.stop()
-                    currentState = self.state
-                
-                elif self.state == 'pause':
-                    self.player.pause()
-                    currentState = self.state
-                
-                elif self.state == 'unpause':
-                    self.player.unpause()
-                    currentState = self.state
+                    elif self.state == 'stop':
+                        self.songInd = 0
+                        self.player.stop()
+                        currentState = self.state
+                    
+                    elif self.state == 'pause':
+                        self.player.pause()
+                        currentState = self.state
+                    
+                    elif self.state == 'unpause':
+                        self.player.unpause()
+                        currentState = self.state
 
-                elif self.state == 'next':
-                    self.songInd += 1
-                    self.player.stop()
-                    self.state = 'play'
-                    if self.songInd >= len(self.queue):
-                        self.state = "stop"
+                    elif self.state == 'next':
+                        self.player.stop()
+                        self.songInd += 1
+                        self.state = 'play'
+                        if self.songInd >= len(self.queue):
+                            self.state = "stop"
 
+            except Exception as e:
+                self.state = 'next'
+                print(e)
 
             if not self.player.playCheck() and self.state == 'playing':
                 self.state = 'next'
@@ -265,25 +270,42 @@ class playerCLI():
                     print(e)
 
                 continue
+            
+            elif command == 'deleteall':
+                try:
+                    self.songLayout.deleteAll()
+                    self.refreshLayout()
+                except Exception as e:
+                    print(e)
+
+                continue
 
             elif command == 'pplay':
                 self.songInd = 0
+                self.queue = []
                 if args[0] not in self.sLayout:
                     print(f'no playlist exists : {args[0]}')
                     continue
                 for songName in self.sLayout[args[0]]['songs']:
-                    self.queue.append(os.path.join(self.settings['downloadPath'], self.sLayout[args[0]]['songs'][songName]['file']))
+                    self.queue.append({
+                        'name' : self.sLayout[args[0]]['songs'][songName]['file'],
+                        'path' : os.path.join(self.settings['downloadPath'], self.sLayout[args[0]]['songs'][songName]['file'])
+                        })
                 
                 self.state = 'play'
                 continue
 
             elif command == 'play':
                 self.songInd = 0
+                self.queue = []
                 if args[0] not in self.sLayout[self.settings['allSongs']]['songs']:
                     print(f'no song exists : {args[0]}')
                     continue
 
-                self.queue.append(os.path.join(self.settings['downloadPath'], self.sLayout[self.settings['allSongs']]['songs'][args[0]]['file']))
+                self.queue.append({
+                    'name' : self.sLayout[self.settings['allSongs']]['songs'][args[0]]['file'],
+                    'path' : os.path.join(self.settings['downloadPath'], self.sLayout[self.settings['allSongs']]['songs'][args[0]]['file'])
+                    })
                 
                 self.state = 'play'
                 continue

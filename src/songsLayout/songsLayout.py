@@ -104,7 +104,10 @@ class songsLayout:
             print('song already in the playlist')
         else:
             songFileName, songUrl = getUrl(songName)
+            songFileName = songFileName.replace('|', '_')
+
             songFileName += '.mp3'
+
             if songName in sLayout[self.settings["allSongs"]]['songs']:
                 sLayout[playlistName]['songs'][songName] = sLayout[self.settings["allSongs"]]['songs'][songName]
             else:
@@ -182,7 +185,12 @@ class songsLayout:
             del sLayout[self.settings["allSongs"]]['songs'][songName]
 
             if os.path.exists(os.path.join(self.settings['downloadPath'], songFileName)):
-                os.remove(os.path.join(self.settings['downloadPath'], songFileName))
+                filePath = os.path.join(self.settings['downloadPath'], songFileName)
+                try:
+                    os.remove(filePath)
+                    print(f'{songFileName} deleted')
+                except Exception as e:
+                    print(f'Failed to delete {filePath}. Reason: {e}')
             else:
                 print(f'The song does not exist : {os.path.join(self.settings["downloadPath"], songFileName)}')
         else:
@@ -244,7 +252,9 @@ class songsLayout:
             allSongs.append(songName)
 
         return allSongs
-    
+    '''
+        clear the whole layout
+    '''
     def clearLayout(self):
         with open(self.settings['layoutPath']) as l:
            sLayout = json.load(l)
@@ -258,3 +268,16 @@ class songsLayout:
         with open(self.settings['layoutPath'], 'w') as l:
             json.dump(sLayout, l, indent=4)
 
+    '''
+        delete all songs and clear the layout 
+    '''
+    def deleteAll(self):
+        self.clearLayout()
+
+        for fileName in os.listdir(self.settings['downloadPath']):
+            filePath = os.path.join(self.settings['downloadPath'], fileName)
+            try:
+                os.remove(filePath)
+                print(f'{fileName} deleted')
+            except Exception as e:
+                print(f'Failed to delete {filePath}. Reason: {e}')

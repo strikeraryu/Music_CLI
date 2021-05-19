@@ -3,12 +3,21 @@ import pygame
 class musicPlayer():
     def __init__(self):
         pygame.mixer.init()
+        self.currSong = ''
+
+
+    '''
+        check is song in playing
+    '''
+    def playCheck(self):
+        return pygame.mixer.music.get_busy()
 
     '''
         Play the specific Song
     '''
-    def play(self, songPath):
-        print("playing song...")
+    def play(self, songName, songPath):
+        self.currSong = songName
+        print(f'playing song {self.currSong}')
         pygame.mixer.music.load(songPath)
         pygame.mixer.music.play()
 
@@ -16,25 +25,38 @@ class musicPlayer():
         stop the song playing
     '''
     def stop(self):
-        print("song stopped...")
-        pygame.mixer.music.stop()
+        if not self.playCheck :
+            self.currSong ==''
+
+        if self.currSong == '':
+            print('No song playing')
+        else:
+            print(f'song stopped {self.currSong}')
+            self.currSong = ''
+            pygame.mixer.music.stop()
 
     '''
         pause the song
     '''
     def pause(self):   
-        print("song paused...")
-        pygame.mixer.music.pause()
+        if not self.playCheck :
+            self.currSong = ''
+
+        if self.currSong == '':
+            print('No song playing')
+        else:
+            print(f'song paused {self.currSong}')
+            pygame.mixer.music.pause()
 
     '''
         unpause the song
     '''
     def unpause(self):
-        print("song unpaused...")
-        pygame.mixer.music.unpause()
+        if not self.playCheck :
+            self.currSong = ''
 
-    '''
-        check is song in playing
-    '''
-    def playCheck(self):
-        return pygame.mixer.music.get_busy()
+        if self.currSong == '':
+            print('No song playing')
+        else:
+            print(f'song unpaused {self.currSong}')
+            pygame.mixer.music.unpause()
