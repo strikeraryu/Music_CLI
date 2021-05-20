@@ -10,10 +10,10 @@
 * You can use to help command to get list of all commands and details 
 	#### Get started
 	* run "Pcreate playlistName" to create a playlist
-	* "Sadd playlistName SongName" to add song in the specific playlist (you can use deafult playlist also i.e allSongs) 
+	* "Sadd playlistName SongName" to add song in the specific playlist (you can use default playlist also i.e allSongs) 
 	* "Pplay playlistName" to play the specific playlist
-	* "play songName" to play specifc song (the song name should match as entered while adding)
-	* Note: use double quotes from multi words args (eg. Pcreate "playlst name\")
+	* "play songName" to play specific song (the song name should match as entered while adding)
+	* Note: use double quotes from multi words args (eg. Pcreate "playlist name\")
 
 
 
