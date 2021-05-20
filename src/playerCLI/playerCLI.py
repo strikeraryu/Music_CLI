@@ -24,24 +24,150 @@ class playerCLI():
 
         # key should be in lower case
         self.argsCheck = {
-            'help' : {'command' : 'help', 'N' : 0, 'type' : [], 'args' : [''], 'confirm' : False},
-            'pcreate' : {'command' : 'Pcreate', 'N' : 1, 'type' : [str], 'args' : ['playlistName'], 'confirm' : False},
-            'pdelete' : {'command' : 'Pdelete', 'N' : 1, 'type' : [str], 'args' : ['playlistName'], 'confirm' : True},
-            'sadd' : {'command' : 'Sadd', 'N' : 2, 'type' : [str, str], 'args' : ['playlistName', 'songName'], 'confirm' : False},
-            'sremove' : {'command' : 'Sremove', 'N' : 2, 'type' : [str, str], 'args' : ['playlistName', 'songName'], 'confirm' : True},
-            'sdelete' : {'command' : 'Sdelete', 'N' : 1, 'type' : [str], 'args' : ['songName'], 'confirm' : True},
-            'pget' : {'command' : 'Pget', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
-            'sget' : {'command' : 'Sget', 'N' : 1, 'type' : [str], 'args' : ['playlistName'], 'confirm' : False},
-            'sgetall' : {'command' : 'Sgetall', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
-            'lclear' : {'command' : 'Lclear', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : True},
-            'deleteall' : {'command' : 'deleteAll', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : True},
-            'pplay' : {'command' : 'Pplay', 'N' : 1, 'type' : [str], 'args' : ['playlistName'], 'confirm' : False},
-            'play' : {'command' : 'play', 'N' : 1, 'type' : [str], 'args' : ['songName'], 'confirm' : False},
-            'stop' : {'command' : 'stop', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
-            'pause' : {'command' : 'pause', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
-            'unpause' : {'command' : 'unpause', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
-            'next' : {'command' : 'next', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : False},
-            'exit' : {'command' : 'exit', 'N' : 0, 'type' : [], 'args' : [], 'confirm' : True},
+            'help' : {
+                'command' : 'help', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [''], 
+                'use' : 'get the list of all commands with details',
+                'confirm' : False
+                },
+            'pcreate' : {
+                'command' : 'Pcreate', 
+                'N' : 1, 
+                'type' : [str], 
+                'args' : ['playlistName'], 
+                'use' : 'to create a new playlist',
+                'confirm' : False
+                },
+            'pdelete' : {
+                'command' : 'Pdelete', 
+                'N' : 1, 
+                'type' : [str], 
+                'args' : ['playlistName'], 
+                'use' : 'delete specific playlist',
+                'confirm' : True
+                },
+            'sadd' : {
+                'command' : 'Sadd', 
+                'N' : 2, 
+                'type' : [str, str], 
+                'args' : ['playlistName', 'songName'], 
+                'use' : 'add song in specific playlist',
+                'confirm' : False
+                },
+            'sremove' : {
+                'command' : 'Sremove', 
+                'N' : 2, 
+                'type' : [str, str], 
+                'args' : ['playlistName', 'songName'], 
+                'use' : 'remove song from specific playlist',
+                'confirm' : True
+                },
+            'sdelete' : {
+                'command' : 'Sdelete', 
+                'N' : 1, 
+                'type' : [str], 
+                'args' : ['songName'], 
+                'use' : 'delete a specific song from everywhere',
+                'confirm' : True
+                },
+            'pget' : {
+                'command' : 'Pget', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'get list of all playlist',
+                'confirm' : False
+                },
+            'sget' : {
+                'command' : 'Sget', 
+                'N' : 1, 
+                'type' : [str], 
+                'args' : ['playlistName'], 
+                'use' : 'get list of all songs in a playlist',
+                'confirm' : False
+                },
+            'sgetall' : {
+                'command' : 'Sgetall', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'get list of all songs',
+                'confirm' : False
+                },
+            'lclear' : {
+                'command' : 'Lclear', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'clear layout i.e all songs and playlists',
+                'confirm' : True
+                },
+            'deleteall' : {
+                'command' : 'deleteAll', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'delete all songs and clear layout',
+                'confirm' : True
+                },
+            'pplay' : {
+                'command' : 'Pplay', 
+                'N' : 1, 
+                'type' : [str], 
+                'args' : ['playlistName'], 
+                'use' : 'play specific playlist',
+                'confirm' : False
+                },
+            'play' : {
+                'command' : 'play', 
+                'N' : 1, 
+                'type' : [str], 
+                'args' : ['songName'], 
+                'use' : 'play specific song',
+                'confirm' : False
+                },
+            'stop' : {
+                'command' : 'stop', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'stop current playing songs',
+                'confirm' : False
+                },
+            'pause' : {
+                'command' : 'pause', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'pause current playing songs',
+                'confirm' : False
+                },
+            'unpause' : {
+                'command' : 'unpause', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'unpause current playing songs',
+                'confirm' : False
+                },
+            'next' : {
+                'command' : 'next', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'play next song in the queue',
+                'confirm' : False
+                },
+            'exit' : {
+                'command' : 'exit', 
+                'N' : 0, 
+                'type' : [], 
+                'args' : [], 
+                'use' : 'exit from CLI',
+                'confirm' : True
+                },
         }
 
     '''
@@ -180,11 +306,18 @@ class playerCLI():
 
             # command handling
             if command == 'help':
+                print('''
+                \n!! use double quotes from multi words args !!
+                \n\teg. Pcreate \"playlist name\"
+                \n
+                \n || commands || 
+                ''')
                 helpList = []
                 for cmd in self.argsCheck:
-                    helpList.append((self.argsCheck[cmd]['command'], ", ".join(self.argsCheck[cmd]['args'])))
+                    helpList.append((self.argsCheck[cmd]['command'], self.argsCheck[cmd]['use'], ", ".join(self.argsCheck[cmd]['args'])))
                 
-                print(tabulate(helpList, headers=["command", "args"]))
+                print(tabulate(helpList, headers=["command", "discription", "args"]))
+                print()
                 continue
 
             elif command == 'pcreate':

@@ -1,5 +1,0 @@
-ffmpeg - https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z
-youtube_dl - pip install --upgrade youtube_dl
-youtubesearchpython - pip install youtube-search-python
-pygame - pip install pygame
-tabulate - pip install tabulate
