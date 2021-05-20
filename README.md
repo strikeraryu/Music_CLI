@@ -4,9 +4,9 @@
 
 
 ### How to use
-* Download/clone the repository https://github.com/strikeraryu/Music_CLI
+* Download/clone the repository [Music_CLI](https://github.com/strikeraryu/Music_CLI)
 * Install all the requirements mention in [requirements](https://github.com/strikeraryu/Music_CLI/blob/master/requirements.md)
-* In SRC dir of the project run "main.py", a command line will start
+* Through terminal, CD to SRC dir of the project and run "main.py", a command line will start
 * You can use to help command to get list of all commands and details 
 	#### Get started
 	* run "Pcreate playlistName" to create a playlist
